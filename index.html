@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <title>Happiest 25th Anniversary</title>
+    <link rel="stylesheet" type="text/css" href="format.css">
+    <style>
+        /* Ensure the canvas fills the window */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            overflow: hidden;
+        }
+
+        #heartTxt {
+            position: absolute;
+            top: 50%;
+            left: 80%; /* Move to the right */
+            /* Keep it vertically centered */
+            text-align: center;
+        }
+        
+        #heartTxt button {
+            font-size: 30px;
+            padding: 10px 20px;
+            background-color: #295d8e;
+            color: hsl(213, 100%, 2%);
+            border: 2px solid #100f34;
+            border-radius: 50%; /* Remove this */
+            width: 100px;
+            height: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease; /* Create heart shape */
+            margin-top: 20px;
+            /* Create a heart shape using pseudo-element */
+        }
+        
+        #heartTxt button:before {
+            content: "❤️";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.5);
+            font-size: 40px;
+        }
+        
+        #heartTxt button:hover {
+            background-color: #73c8de;
+            transform: scale(1.1) rotate(45deg); /* Keep the heart shape on hover */
+            box-shadow: 0 0 15px rgba(126, 191, 213, 0.8);
+        }
+        
+        #heartTxt button:active {
+            transform: scale(0.95) rotate(45deg); /* Keep the heart shape on click */
+        }
+        
+        #timer {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        #content {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #together {
+            font-size: 28px;
+            color: #92dbf3;
+        }
+
+        #typeDiv {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        #txt1, #txt2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #77abcf;
+        }
+
+        #imgTxt {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        #imgTxt img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Fixed text message section */
+        #txtMessage {
+            font-size: 30px;
+            color: #9cd5e4;
+            font-weight: bold;
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+        <source src="tom-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio.
+    </audio>
+
+    <!-- Canvas for Visual Effects -->
+    <canvas id="myCanvas"></canvas>
+
+    <!-- Image Text Section -->
+    <div id="imgTxt">
+        <span id="Txt"></span> <br />
+        <span id="tmp"></span>
+        <img id="img" src="" alt="Image">
+    </div>
+
+    <!-- Heart Click Section -->
+    <div id="heartTxt">
+        <button id="button" onclick="openSecPage()"><br>Click Me!</button>
+    </div>
+
+    <!-- Timer Section -->
+    <div id="content">
+        <div id="txtMessage">
+            Happiest 25th Anniversary, Mom and Dad! 💖
+        </div>
+        <h2 id="together">Celebrating <b>25 Years of Love</b> and a Journey to <b>Forever</b>!</h2>
+        <p id="timerCaption">The journey of love continues... <b>Every second is Special for uss!💖</b></p>
+        <div id="timer">
+            <b id="d"></b> Days 
+            <b id="h"></b> Hours 
+            <b id="m"></b> Minutes 
+            <b id="s"></b> Seconds
+        </div>
+    </div>
+
+    <!-- Typing Animation Section -->
+    <div id="typeDiv">
+        <span id="txt1"></span> <br />
+        <span id="txt2"></span>
+    </div>
+
+    <!-- Anniversary Message -->
+   
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Function to Redirect to sec.html
+        function openSecPage() {
+            window.location.href = "sec.html"; // Redirect to the sec.html page
+        }
+
+        var ok = 0;
+        var flag = 1;
+        var myImage = document.getElementById("img");
+        var myTxt = document.getElementById("Txt");
+        var imageArray = [
+            "pic1.png", "pic2.png", "pic3.png", "pic4.png",
+            "pic5.png", "pic6.png", "pic7.png", "pic8.png",
+            "pic9.png"
+        ];
+        var txtArray = [
+            "你好哇，小可爱~", "我们第一次见面的时候，女票认真的小眼神，嘻嘻",
+            "当时我也有在比心哦~(｡･ω･｡)ﾉ♡", "第一次去重庆见女票, 小仙女出现啦",
+            "江边，今夜月色真美", "牵爪爪散步，开心~o(≧v≦)o",
+            "咳咳，老大不小了还写情书，真是让人害羞(/ω＼)",
+            "超级喜欢女票送的兔兔和胡萝卜!!!", "举手手，我是最可爱的(･∀･)",
+            "同款举手手（好吧，还是女票可爱）", "哇哇哇，这么可爱犯规啦",
+            "下次去旅游可以叫上我一起吗~", "说，我叠的星星好不好看٩(๑òωó๑)۶",
+            "洪崖洞买的邱邱~", "女票女票，我爱你~", "哒哒哒，逃~"
+        ];
+        var imageIndex = 0;
+        var len = imageArray.length;
+        var t = 0;
+
+        // Change image and text dynamically
+        function changeContent() {
+            myImage.src = imageArray[imageIndex];
+            myTxt.textContent = txtArray[imageIndex];
+            imageIndex = (imageIndex + 1) % len;  // Loop through images
+        }
+
+        setInterval(changeContent, 3000); // Change every 3 seconds
+
+        // Timer to count down (mock for this example)
+        function updateTimer() {
+            const targetDate = new Date("2025-12-08T00:00:00").getTime();
+            const now = new Date().getTime();
+            const timeRemaining = targetDate - now;
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("d").textContent = days;
+            document.getElementById("h").textContent = hours;
+            document.getElementById("m").textContent = minutes;
+            document.getElementById("s").textContent = seconds;
+        }
+
+        setInterval(updateTimer, 1000); // Update every second
+    </script>
+
+    <!-- External JavaScript Files -->
+    <script type="text/javascript" src="stars.js"></script>
+    <script type="text/javascript" src="typeWriter.js"></script>
+    <script type="text/javascript" src="date.js"></script>
+    <script type="text/javascript" src="playImg.js"></script>
+</body>
+</html>
