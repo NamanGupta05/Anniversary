@@ -57,7 +57,7 @@
 }
 #d, #h, #m, #s {
     display: inline-block;
-    width: 40px; /* Adjust as needed */
+    width: 30px; /* Adjust as needed */
     text-align: center;
     font-family: monospace; /* Ensures equal width for numbers */
 }
